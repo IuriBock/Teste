@@ -14,7 +14,7 @@ screen.tracer(0)
 
 screen.register_shape("ezgif.com-resize.gif")
 
-turtle.bgpic(r"mar2-ezgif.com-crop.gif")
+turtle.bgpic("mar2-ezgif.com-crop.gif")
 
 #-----------------Ambiente----------------
 amb = turtle.Turtle()  #controle do ambiente
