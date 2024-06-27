@@ -7,6 +7,7 @@ import random
 v = 2 #velocidade do robo
 d = 50 #distancia da parede
 box = 12 #tamanho da hitbox
+ovo={} #cria lista para ovos
 
 #----------------Tela-------------
 screen=turtle.Screen()
@@ -14,7 +15,7 @@ screen.tracer(0)
 
 screen.register_shape("ezgif.com-resize.gif")
 
-turtle.bgpic("mar2-ezgif.com-crop.gif")
+turtle.bgpic(r"mar2-ezgif.com-crop.gif")
 
 #-----------------Ambiente----------------
 amb = turtle.Turtle()  #controle do ambiente
@@ -132,8 +133,13 @@ def dist_sens(robot,sensor):
       if key != i:
         if sensor.xcor() > (cord[i][0] - box)  and sensor.xcor() < (cord[i][0] + box) and sensor.ycor() > (cord[i][1] - box)  and sensor.ycor() < (cord[i][1] + box):
           return sensor.pos()
-    sensor.fd(10)
 
+# Impede colisão com ovos
+    for i in ovo:
+      if sensor.xcor() > (ovo[i].xcor() - box)  and sensor.xcor() < (ovo[i].xcor() + box) and sensor.ycor() > (ovo[i].ycor() - box)  and sensor.ycor() < (ovo[i].ycor() + box):
+        return sensor.pos()
+        
+    sensor.fd(5)
 
 # Função que calcula a posição dos robos
 cord = {}   
@@ -183,13 +189,13 @@ def graf_sens():
 
 #-----------------Main-----------------------
 # Rodar o código
-n = 2 # Número de tartarugas
+n = 1 # Número de tartarugas
 cria_robos(n)
 cria_sensores()
-
+ov = 0
 
 def setup():
-
+  global ov
   for i in robo.keys(): # movimenta todos robos criados
     mov_robo(robo[i])
 
@@ -197,12 +203,15 @@ def setup():
   # se a tartaruga grande estiver na região de areia, tem a possibilidade de colocar ovos
   if robo[0].ycor() < -250:   
     if random.randint(0,100) == 0:
-      ovo = turtle.Turtle()
-      ovo.shape("ezgif.com-resize.gif")
-      ovo.color('white')
-      ovo.shapesize(0.5)
-      ovo.pu()
-      ovo.goto(robo[0].xcor(),robo[0].ycor())
+      for i in range(5):
+        ovo[ov] = turtle.Turtle()
+        ovo[ov].shape("ezgif.com-resize.gif")
+        ovo[ov].shapesize(0.5)
+        ovo[ov].pu()
+        ovo[ov].goto(robo[0].xcor()+random.randint(-5,5),robo[0].ycor()+random.randint(-5,5))
+        ov += 1
+      
+      robo[0].fd(20)
 
   graf_sens() #gera o gráfico
   robo_cor() #gera a posição dos robos para evitar colisões
