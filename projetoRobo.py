@@ -52,7 +52,7 @@ def cria_robos(n): #Fução criadora de robos
     robo[i].shape('turtle')
     robo[i].pu()
     robo[i].speed(0)
-    robo[i].goto(random.randint(tamanhoX / -4, tamanhoX / 4), random.randint(tamanhoY / -4, tamanhoY / 4)) # Leva o robo para uma posição aleatória
+    robo[i].goto(random.randint(int(tamanhoX / -4),int(tamanhoX / 4)), random.randint(int(tamanhoY / -4), int(tamanhoY / 4))) # Leva o robo para uma posição aleatória
     robo[i].seth(random.randint(0, 360)) # coloca sua direção aleatória
 
 
@@ -189,7 +189,7 @@ def graf_sens():
 
 #-----------------Main-----------------------
 # Rodar o código
-n = 1 # Número de tartarugas
+n = 3 # Número de tartarugas
 cria_robos(n)
 cria_sensores()
 ov = 0
